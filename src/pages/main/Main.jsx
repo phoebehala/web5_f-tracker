@@ -7,6 +7,7 @@ import { Box, Grid } from '@material-ui/core'
 import TransactionList from '../../components/transactionList/TransactionList'
 import Summary from '../../components/summary/Summary'
 import Balance from '../../components/balance/Balance'
+import AddTransaction from '../../components/addTransaction/AddTransaction'
 
 
 
@@ -31,7 +32,9 @@ const Main = () => {
           <TransactionList/>
       </Grid>
 
+      <AddTransaction/>
     </Box >
+
 
   )
 }
