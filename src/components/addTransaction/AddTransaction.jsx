@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from 'uuid';
 import {FinanceTrackerContext} from '../../context/context'
 //styles
 import useStyles from './addTransaction.styles'
-
 // materialUI components
 import { TextField, Typography, Grid, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-
+// data 
+import {incomeCategories, expenseCategories} from '../../data/categories'
 
 const AddTransaction = () => {
   const classes = useStyles()
@@ -16,14 +16,16 @@ const AddTransaction = () => {
   const [formData, setFormData] = useState(initialFormData)
 
   // contextAPI
-  const globalState = useContext(FinanceTrackerContext)
-  console.log( globalState );
+  //const globalState = useContext(FinanceTrackerContext)
+  //console.log( globalState );
   const {addTransaction} = useContext(FinanceTrackerContext)
   const handleCreateTransaction = ()=>{
     //console.log(formData);
     addTransaction( {...formData, amount:Number(formData.amount), id:uuidv4()} )
     setFormData((initialFormData))
   }
+
+  const selectedCats = formData.type ==='Income'? incomeCategories :expenseCategories
 
   return (
     <Grid container spacing={2}>
@@ -41,9 +43,10 @@ const AddTransaction = () => {
       <Grid item xs={12}>
         <FormControl fullWidth>
           <InputLabel>Category</InputLabel>
-         <Select value={formData.cat}  onChange={(e)=>setFormData({ ...formData, cat: e.target.value})}>
-            <MenuItem value="salary">salary</MenuItem>
-            <MenuItem value="part time">part time</MenuItem>
+          <Select value={formData.cat}  onChange={(e)=>setFormData({ ...formData, cat: e.target.value})}>
+            {selectedCats.map((cat)=>(
+              <MenuItem key={cat.name} value={cat.name}>{cat.name}</MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Grid>
