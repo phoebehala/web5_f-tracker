@@ -13,6 +13,9 @@ import useStyles from './balance.styles'
 import { useContext } from 'react';
 import { FinanceTrackerContext } from '../../context/context';
 
+//utils
+import { currencyFormatter } from '../../utils/formatCurrency';
+
 
 const Balance = () => {
     const classes = useStyles()
@@ -31,7 +34,7 @@ const Balance = () => {
             now={1000}
           />
       <CardContent>
-        <Typography align="center" variant="h5">Total Balance ${balance}</Typography>
+        <Typography align="center" variant="h5">Total Balance {currencyFormatter.format(balance)}</Typography>
       </CardContent>
 
       <Divider className={classes.divider} />
