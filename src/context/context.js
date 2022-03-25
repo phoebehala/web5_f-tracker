@@ -13,6 +13,9 @@ export const FinanceTrackerContext = createContext(initialState);
 export const FinanceTrackerProvider = ({children})=>{
 
     const [transactions, dispatch] = useReducer(transactionReducer,initialState)
+    const balance = transactions.reduce((accumulator, currentValue) =>{
+        return(currentValue.type === 'Expense'? accumulator-currentValue.amount : accumulator+currentValue.amount)
+    }, 0)
 
     // Actions Creators
     const deleteTransaction = (id)=>{
@@ -27,6 +30,7 @@ export const FinanceTrackerProvider = ({children})=>{
     return(
         <FinanceTrackerContext.Provider value={{
             transactions:transactions,
+            balance:balance,
             deleteTransaction:deleteTransaction,
             addTransaction:addTransaction,
         }}>

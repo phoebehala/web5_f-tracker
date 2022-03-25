@@ -1,16 +1,48 @@
 import React from 'react'
 
 // materialUI components
-//import { Card, CardHeader, CardContent, Typography, Divider } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Typography, Divider } from '@material-ui/core';
 // bootstrap components
-import { Button, Card, ProgressBar, Stack } from "react-bootstrap"
+//import { Button, Card, ProgressBar, Stack } from "react-bootstrap"
+import {  ProgressBar } from "react-bootstrap"
 
 // styles
 import useStyles from './balance.styles'
 
+// contextAPI
+import { useContext } from 'react';
+import { FinanceTrackerContext } from '../../context/context';
+
+
 const Balance = () => {
     const classes = useStyles()
+    const {balance} = useContext(FinanceTrackerContext)
+
   return (
+    <Card className={classes.root}>
+        
+      <CardHeader title="Expense Tracker" subheader="Total Balance" />
+        <ProgressBar
+            className="rounded-pill"
+            style={{height:"10px"}}
+            variant={getProgressBarVariant(1000, 2000)}
+            min={0}
+            max={2000}
+            now={1000}
+          />
+      <CardContent>
+        <Typography align="center" variant="h5">Total Balance ${balance}</Typography>
+      </CardContent>
+
+      <Divider className={classes.divider} />
+
+      <CardHeader title="Expense Tracker" subheader="Budget" />
+      <CardContent >
+
+      </CardContent>
+    </Card>
+
+        /*
     <Card >
     <Card.Body>
       <Card.Title className="d-flex justify-content-between align-items-baseline fw-normal mb-3">
@@ -25,30 +57,8 @@ const Balance = () => {
 
     </Card.Body>
   </Card>
-/*
-    <Card className={classes.root}>
-        
-      <CardHeader title="Expense Tracker" subheader="Total Balance" />
-        <ProgressBar
-            className="rounded-pill"
-            style={{height:"10px"}}
-            variant={getProgressBarVariant(1000, 2000)}
-            min={0}
-            max={2000}
-            now={1000}
-          />
-      <CardContent>
-        <Typography align="center" variant="h5">Total Balance $</Typography>
-      </CardContent>
+  */
 
-      <Divider className={classes.divider} />
-
-      <CardHeader title="Expense Tracker" subheader="Budget" />
-      <CardContent >
-
-      </CardContent>
-    </Card>
-*/
   )
 }
 
