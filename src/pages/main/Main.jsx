@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 // materialUI components
 import { Box, Grid } from '@material-ui/core'
@@ -12,6 +12,11 @@ import AddTransaction from '../../components/addTransaction/AddTransaction'
 
 
 const Main = () => {
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [currentTransaction, setCurrentTransaction] = useState({});
+  //console.log(currentTransaction);
+  //console.log(isEditMode);
+
   return (    
     <Box style={{ height: '100vh'}}>
       <Grid container>   {/* rowSpacing={5} columnSpacing={{xs:3, sm:2}} doesn't work */}
@@ -29,10 +34,12 @@ const Main = () => {
       </Grid>
 
       <Grid xs={12} sm={12}>
-          <TransactionList/>
+          <TransactionList setIsEditMode={setIsEditMode}
+                           setCurrentTransaction={setCurrentTransaction}/>
       </Grid>
 
-      <AddTransaction/>
+      <AddTransaction isEditMode={isEditMode} 
+                      currentTransaction={currentTransaction}/>
     </Box >
 
 

@@ -25,6 +25,10 @@ export const FinanceTrackerProvider = ({children})=>{
     const addTransaction = (transaction) => {
         dispatch({ type: 'ADD_TRANSACTION', payload: transaction });
     };
+
+    const editTransaction = (transaction)=>{
+        dispatch({type:'EDIT_TRANSACTION', payload:transaction})
+    }
     console.log(transactions);
 
     return(
@@ -33,6 +37,7 @@ export const FinanceTrackerProvider = ({children})=>{
             balance:balance,
             deleteTransaction:deleteTransaction,
             addTransaction:addTransaction,
+            editTransaction:editTransaction
         }}>
             {children}
         </FinanceTrackerContext.Provider>

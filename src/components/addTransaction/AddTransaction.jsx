@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 // contextAPI
 import {FinanceTrackerContext} from '../../context/context'
@@ -11,19 +11,33 @@ import {incomeCategories, expenseCategories} from '../../data/categories'
 //utils
 import formatDate from '../../utils/formatDate'
 
-const AddTransaction = () => {
+const AddTransaction = ({isEditMode, currentTransaction}) => {
   const classes = useStyles()
 
   const initialFormData = {type:'Income', category:'', amount:'' , date:'', desc:''}
   const [formData, setFormData] = useState(initialFormData)
 
+  useEffect(()=>{
+     //check if currentTransaction is empty obj
+     if(Object.keys(currentTransaction).length!==0){
+       setFormData({type:currentTransaction.type, category:currentTransaction.category, amount:currentTransaction.amount , date:currentTransaction.date ,  desc:currentTransaction.desc})
+     }
+  },[isEditMode,currentTransaction])
+
   // contextAPI
   //const globalState = useContext(FinanceTrackerContext)
   //console.log( globalState );
-  const {addTransaction} = useContext(FinanceTrackerContext)
+  const {addTransaction, editTransaction} = useContext(FinanceTrackerContext)
   const handleCreateTransaction = ()=>{
-    console.log(formData);
+    //console.log(formData);
     addTransaction( {...formData, amount:Number(formData.amount), id:uuidv4()} )
+    setFormData((initialFormData)) // set back to default value
+  }
+  const handleEditTransaction = ()=>{
+    console.log(formData);
+    const currentTransactionId = currentTransaction.id
+    console.log(currentTransactionId);
+    editTransaction( {...formData, amount:Number(formData.amount), id:currentTransactionId } )
     setFormData((initialFormData))
   }
 
@@ -35,17 +49,19 @@ const AddTransaction = () => {
       <Grid item xs={12}>
         <FormControl fullWidth>
           <InputLabel>Type</InputLabel>
-          <Select value={formData.type} onChange={(e)=>setFormData({ ...formData, type: e.target.value})}>
-            <MenuItem value="Income">Income</MenuItem>
-            <MenuItem value="Expense">Expense</MenuItem>
-          </Select>
+
+            <Select value={formData.type} onChange={(e)=>setFormData({ ...formData, type: e.target.value})}>
+                <MenuItem value="Income">Income</MenuItem>
+                <MenuItem value="Expense">Expense</MenuItem>
+            </Select>
+        
         </FormControl>
       </Grid>
 
       <Grid item xs={12}>
         <FormControl fullWidth>
           <InputLabel>Category</InputLabel>
-          <Select value={formData.cat}  onChange={(e)=>setFormData({ ...formData, category: e.target.value})}>
+          <Select value={formData.category}  onChange={(e)=>setFormData({ ...formData, category: e.target.value})}>
             {selectedCats.map((cat)=>(
               <MenuItem key={cat.name} value={cat.name}>{cat.name}</MenuItem>
             ))}
@@ -68,11 +84,19 @@ const AddTransaction = () => {
                     onChange={(e)=>setFormData({ ...formData, desc:e.target.value})}/>
       </Grid>
 
+      {isEditMode
+        ?(
+          <Button className={classes.button} variant="outlined" color="primary" fullWidth 
+                  onClick={handleEditTransaction} >
+          Edit
+          </Button>
+        ):(
 
-      <Button className={classes.button} variant="outlined" color="primary" fullWidth 
-              onClick={handleCreateTransaction} >
-        Create
-      </Button>
+        <Button className={classes.button} variant="outlined" color="primary" fullWidth 
+                onClick={handleCreateTransaction} >
+          Create
+        </Button>
+        )}
 
     </Grid>
   )
