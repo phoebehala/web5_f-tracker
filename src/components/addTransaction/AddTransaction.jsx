@@ -8,11 +8,13 @@ import useStyles from './addTransaction.styles'
 import { TextField, Typography, Grid, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 // data 
 import {incomeCategories, expenseCategories} from '../../data/categories'
+//utils
+import formatDate from '../../utils/formatDate'
 
 const AddTransaction = () => {
   const classes = useStyles()
 
-  const initialFormData = {type:'Income', cat:'', amount:'' , date:'', desc:''}
+  const initialFormData = {type:'Income', category:'', amount:'' , date:'', desc:''}
   const [formData, setFormData] = useState(initialFormData)
 
   // contextAPI
@@ -20,7 +22,7 @@ const AddTransaction = () => {
   //console.log( globalState );
   const {addTransaction} = useContext(FinanceTrackerContext)
   const handleCreateTransaction = ()=>{
-    //console.log(formData);
+    console.log(formData);
     addTransaction( {...formData, amount:Number(formData.amount), id:uuidv4()} )
     setFormData((initialFormData))
   }
@@ -43,7 +45,7 @@ const AddTransaction = () => {
       <Grid item xs={12}>
         <FormControl fullWidth>
           <InputLabel>Category</InputLabel>
-          <Select value={formData.cat}  onChange={(e)=>setFormData({ ...formData, cat: e.target.value})}>
+          <Select value={formData.cat}  onChange={(e)=>setFormData({ ...formData, category: e.target.value})}>
             {selectedCats.map((cat)=>(
               <MenuItem key={cat.name} value={cat.name}>{cat.name}</MenuItem>
             ))}
@@ -58,7 +60,7 @@ const AddTransaction = () => {
       
       <Grid item xs={12}>
         <TextField label="Date" type="date" value={formData.date} fullWidth 
-                    onChange={(e)=>setFormData({ ...formData, date:e.target.value})}/>
+                    onChange={(e)=>setFormData({ ...formData, date:formatDate(e.target.value)})}/>
       </Grid>
 
       <Grid item xs={12}>
