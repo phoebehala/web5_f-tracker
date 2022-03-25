@@ -1,29 +1,13 @@
 import React, { useReducer, createContext } from 'react';
 import transactionReducer from './transactionReducer'
 
-const initialState = [
-    {   id:1,
-        type:"Income",
-        category:"Salary",
-        amount:1000,
-        date:new Date(),
-        desc:"get paid"
-    },
-    {   id:2,
-        type:"Expense",
-        category:"Food",
-        amount:10,
-        date:new Date(),
-        desc:"lunch"
-    },
-    {   id:3,
-        type:"Expense",
-        category:"Bill",
-        amount:10,
-        date:new Date(),
-        desc:"electricity"
-    }
-];
+const initialState = 
+    JSON.parse(localStorage.getItem('transactions')) ||
+    [
+        { id:'efbad900-09bd-497d-bbc5-190b19944b68', type:"Income", category:"Salary", amount:5000, date:'2022-03-04', desc:"get paid"},
+        { id:'0bb91984-2baa-4768-8e8a-7246c3b4e024', type:"Expense", category:"Food", amount:50, date:'2022-03-05', desc:"supermarket"},
+        { id:'cec3301b-2616-4c08-9cd1-3b5091e135bb', type:"Expense", category:"Bills", amount:100, date:'2022-03-07', desc:"electricity"}
+    ];
 export const FinanceTrackerContext = createContext(initialState);
 
 export const FinanceTrackerProvider = ({children})=>{
@@ -44,7 +28,7 @@ export const FinanceTrackerProvider = ({children})=>{
         <FinanceTrackerContext.Provider value={{
             transactions:transactions,
             deleteTransaction:deleteTransaction,
-            addTransaction:addTransaction
+            addTransaction:addTransaction,
         }}>
             {children}
         </FinanceTrackerContext.Provider>
