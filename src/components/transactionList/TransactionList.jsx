@@ -19,6 +19,7 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction}) => {
     //console.log(searchedTransactions);
 
     const [displayTransactions, setDisplayTransactions] = useState(transactions)
+    console.log({displayTransactions});
 
     const [query, setQuery] = useState('');
   
@@ -34,11 +35,11 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction}) => {
             // union
             const unionTransactions =filteredTransactionsAsPerCat.concat(filteredTransactionsAsPerdesc)
             console.log({unionTransactions});
-            setDisplayTransactions(unionTransactions)
+            setDisplayTransactions(filteredTransactionsAsPerCat)
         }else{
             setDisplayTransactions(transactions)
         }
-    },[query])
+    },[query, transactions])
     console.log(query);
 
 
