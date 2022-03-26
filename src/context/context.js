@@ -40,7 +40,7 @@ export const FinanceTrackerProvider = ({children})=>{
             balance:balance,
             deleteTransaction:deleteTransaction,
             addTransaction:addTransaction,
-            editTransaction:editTransaction.apply,
+            editTransaction:editTransaction,
 
         }}>
             {children}
