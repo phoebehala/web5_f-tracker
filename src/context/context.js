@@ -1,5 +1,5 @@
 import React, { useReducer, createContext } from 'react';
-import transactionReducer from './transactionReducer'
+import transactionReducer from './transactionReducer';
 
 const initialState = 
     JSON.parse(localStorage.getItem('transactions')) ||
@@ -16,7 +16,7 @@ export const FinanceTrackerProvider = ({children})=>{
     const balance = transactions.reduce((accumulator, currentValue) =>{
         return(currentValue.type === 'Expense'? accumulator-currentValue.amount : accumulator+currentValue.amount)
     }, 0)
-
+   
     // Actions Creators
     const deleteTransaction = (id)=>{
         dispatch({type:'DELETE_TRANSACTION', payload:id})
@@ -29,7 +29,10 @@ export const FinanceTrackerProvider = ({children})=>{
     const editTransaction = (transaction)=>{
         dispatch({type:'EDIT_TRANSACTION', payload:transaction})
     }
+
     console.log(transactions);
+
+
 
     return(
         <FinanceTrackerContext.Provider value={{
@@ -37,7 +40,8 @@ export const FinanceTrackerProvider = ({children})=>{
             balance:balance,
             deleteTransaction:deleteTransaction,
             addTransaction:addTransaction,
-            editTransaction:editTransaction
+            editTransaction:editTransaction.apply,
+
         }}>
             {children}
         </FinanceTrackerContext.Provider>

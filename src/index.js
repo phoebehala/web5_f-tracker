@@ -13,9 +13,11 @@ import {myTheme} from './myTheme'
 ReactDOM.render(
   <React.StrictMode>
     <FinanceTrackerProvider>
-      <ThemeProvider theme={myTheme}>
-        <App />
-      </ThemeProvider>
+
+        <ThemeProvider theme={myTheme}>
+          <App />
+        </ThemeProvider>
+
     </FinanceTrackerProvider>
   </React.StrictMode>,
   document.getElementById('root')

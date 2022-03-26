@@ -35,6 +35,8 @@ const transactionReducer = (state, action)=>{
                 
             return newTransactions
 
+
+
         default:
             return state;    
     }
