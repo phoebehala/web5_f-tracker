@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core";
 
-export default makeStyles( ()=>({
+export default makeStyles( (theme)=>({
     income: {
-        boxShadow: '2px 2px 3px 1px #297F87'
+        color:'#297F87'
     },
     expense: {
-        boxShadow: '2px 2px 3px 1px #F6D167'
+        color:'#F6D167'
     },
 }))

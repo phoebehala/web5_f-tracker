@@ -3,15 +3,18 @@ import React, {useEffect, useState} from 'react';
 import { useContext } from 'react';
 import {FinanceTrackerContext} from '../../context/context'
 // materialUI components
-import { List as MUIList, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Slide } from '@material-ui/core';
+import { List as MUIList, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Slide, Button } from '@material-ui/core';
+
 // icons
 import { Cancel, Delete, Edit, MoneyOff, SearchOutlined  } from '@material-ui/icons';
 
 // styles
 import useStyles from './transactionList.styles';
 import './transactionList.css'
+import {Top} from './transactionList.styles';
 
-const TransactionList = ({setIsEditMode,  setCurrentTransaction}) => {
+
+const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}) => {
     const classes = useStyles();
 
     const {transactions, deleteTransaction} = useContext(FinanceTrackerContext)
@@ -22,6 +25,7 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction}) => {
     console.log({displayTransactions});
 
     const [query, setQuery] = useState('');
+
   
     useEffect(()=>{
         if(query.length>0){
@@ -53,6 +57,7 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction}) => {
 
     const handleEditTransaction = (selectedId)=>{
         // open addTransaction(isEditMode) and pass id to it
+        setIsModalOpen(true)
         setIsEditMode(true)
         const selectedTransaction =transactions.find((transaction)=>transaction.id===selectedId)
         console.log(selectedTransaction);
@@ -64,17 +69,31 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction}) => {
     return (
         <MUIList dense={false} className={classes.list}>
 
-            <div className='SearchWrapper'>
-                <div className='IconWrapper'>
-                    <SearchOutlined />
-                </div>
-                <input className='SearchInput'
-                       placeholder="Search…" 
-                       value={query}
-                       onChange={(e) => handleSearchInput(e.target.value)} />
+            <Top>
+                <div className='SearchWrapper'>
+                    <div className='IconWrapper'>
+                        <SearchOutlined />
+                    </div>
+                    <input className='SearchInput'
+                        placeholder="Search…" 
+                        value={query}
+                        onChange={(e) => handleSearchInput(e.target.value)} />
 
-                <Cancel onClick={handleCancelSearch }/>
-            </div>
+                    <Cancel onClick={handleCancelSearch }/>
+                </div>
+
+                <div className='btnWrapper'>
+                    <Button variant="contained"
+                            className={classes.btn}
+                            onClick={()=>setIsModalOpen(true)}>
+                        Create a Transaction
+                    </Button>
+                </div>
+                
+
+            </Top>
+
+
 
         {displayTransactions.map((transaction) => (
         <Slide key={transaction.id} direction="down" in mountOnEnter unmountOnExit>

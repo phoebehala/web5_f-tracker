@@ -10,6 +10,10 @@ export const myTheme = createTheme({
     myBtn:{
         backgroundColor:"red",
         color:"white",
-        border:"1px solid black"
+        border:"1px solid black",
+        '&:hover':{
+            backgroundColor:"pink"
+        }
+
     }
 })
