@@ -90,7 +90,6 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}
                     </Button>
                 </div>
                 
-
             </Top>
 
 

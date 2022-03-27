@@ -19,11 +19,16 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
 
   const initialFormData = {type:'Income', category:'', amount:'' , date:'', desc:''}
   const [formData, setFormData] = useState(initialFormData)
+  console.log({formData});
 
   useEffect(()=>{
      //check if currentTransaction is empty obj
      if(Object.keys(currentTransaction).length!==0){
-       setFormData({type:currentTransaction.type, category:currentTransaction.category, amount:currentTransaction.amount , date:currentTransaction.date ,  desc:currentTransaction.desc})
+       // even when isEditMode set to false, this useEffect still runs 
+       // so nedd to check if isEditMode is true  //so that if isEditMode is false(the time a user created transaction after editing ), it won't run the below code
+       if(isEditMode===true){ 
+         setFormData({type:currentTransaction.type, category:currentTransaction.category, amount:currentTransaction.amount , date:currentTransaction.date ,  desc:currentTransaction.desc})
+       }
      }
   },[isEditMode,currentTransaction])
 
@@ -42,12 +47,13 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
     const currentTransactionId = currentTransaction.id
     console.log(currentTransactionId);
     editTransaction( {...formData, amount:Number(formData.amount), id:currentTransactionId } )
-    setFormData((initialFormData))
+    setFormData((initialFormData))  // set back to default value
     setIsModalOpen(false)
   }
   const handleClickCancel =()=>{
     if (isEditMode === true) setIsEditMode(false)
     setIsModalOpen(false)
+    setFormData((initialFormData)) // set back to default value
   }
 
   const selectedCats = formData.type ==='Income'? incomeCategories :expenseCategories
