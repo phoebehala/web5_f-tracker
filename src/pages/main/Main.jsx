@@ -43,6 +43,7 @@ const Main = () => {
 
       {isModalOpen &&(
        <AddTransaction isEditMode={isEditMode} 
+                       setIsEditMode={setIsEditMode}
                        currentTransaction={currentTransaction}
                        setIsModalOpen={setIsModalOpen}/>
       )}

@@ -14,7 +14,7 @@ import {incomeCategories, expenseCategories} from '../../data/categories'
 import formatDate from '../../utils/formatDate'
 import { fontSize } from '@mui/system';
 
-const AddTransaction = ({isEditMode, currentTransaction, setIsModalOpen}) => {
+const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsModalOpen}) => {
   const classes = useStyles()
 
   const initialFormData = {type:'Income', category:'', amount:'' , date:'', desc:''}
@@ -43,6 +43,10 @@ const AddTransaction = ({isEditMode, currentTransaction, setIsModalOpen}) => {
     console.log(currentTransactionId);
     editTransaction( {...formData, amount:Number(formData.amount), id:currentTransactionId } )
     setFormData((initialFormData))
+    setIsModalOpen(false)
+  }
+  const handleClickCancel =()=>{
+    if (isEditMode === true) setIsEditMode(false)
     setIsModalOpen(false)
   }
 
@@ -109,7 +113,7 @@ const AddTransaction = ({isEditMode, currentTransaction, setIsModalOpen}) => {
                     '& button': { m: 1 } }}>
 
             <Button className={classes.button} variant="outlined" color="primary" fullWidth 
-                    onClick={ ()=>setIsModalOpen(false) } >
+                    onClick={handleClickCancel}  >
                Cancel
             </Button>
           {isEditMode
