@@ -20,7 +20,8 @@ const Main = () => {
   //console.log(isEditMode);
 
   return (    
-    <MUIContainer>
+    <MUIContainer sx={{ bgcolor: '#cfe8fc', height: '100vh' }}>
+
       <Grid container rowSpacing={3} columnSpacing={{sm:2}}>   
           <Grid item xs={12} sm={4} >
             <Summary title="Income"/>
@@ -35,7 +36,7 @@ const Main = () => {
           </Grid>
       </Grid>
 
-      <Grid  sm={12}>
+      <Grid item sm={12}>
           <TransactionList setIsEditMode={setIsEditMode}
                            setCurrentTransaction={setCurrentTransaction}
                            setIsModalOpen={setIsModalOpen}/>
