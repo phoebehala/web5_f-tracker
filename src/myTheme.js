@@ -14,6 +14,5 @@ export const myTheme = createTheme({
         '&:hover':{
             backgroundColor:"pink"
         }
-
     }
 })
