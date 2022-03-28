@@ -16,10 +16,6 @@ export default makeStyles((theme) => ({
   amount:{
     textAlign:"right",
   },
-  desc:{
-    color: theme.palette.text.secondary,
-    textAlign:"right",
-  },
   icons:{
     textAlign:"right",
     paddingRight:theme.spacing(2)
@@ -66,6 +62,19 @@ export const MyItemGrid = styled(Grid)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary,
 
+}));
+export const MyDescHeadGrid = styled(Grid)(({ theme }) => ({
+  color: theme.palette.text.secondary,
+  [theme.breakpoints.down('sm')]: {
+    display:'none'
+  },
+}));
+export const MyDescGrid = styled(Grid)(({ theme }) => ({
+  textAlign:"right",
+  color: theme.palette.text.secondary,
+  [theme.breakpoints.down('sm')]: {
+    display:'none '
+  },
 }));
 export const MyItem = styled(Typography)(({ theme }) => ({
   textAlign: 'center',

@@ -13,7 +13,7 @@ import { Cancel, Delete, Edit, MoneyOff, SearchOutlined  } from '@material-ui/ic
 // styles
 import useStyles from './transactionList.styles';
 import './transactionList.css'
-import { Container, Top, StickyTop, ListItemsWarper, MyItem, MyHeadGrid, MyItemGrid} from './transactionList.styles';
+import { Container, Top, StickyTop, ListItemsWarper, MyItem, MyHeadGrid, MyDescHeadGrid, MyItemGrid, MyDescGrid } from './transactionList.styles';
 
 
 const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}) => {
@@ -94,14 +94,14 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}
                     </div>             
                 </Top>
 
-                <MyHeadGrid container item xs={12}>
-                    <Grid item xs={1}> Type </Grid>
+                <MyHeadGrid container item xs={12} sm={12}>
+                    <Grid item xs={1} sm={1}> Type </Grid>
 
-                    <Grid item xs={2}> Category</Grid>
-                    <Grid item xs={2}> Date </Grid>   
-                    <Grid item xs={2}> Amount</Grid>
+                    <Grid item xs={3} sm={2}> Category</Grid>
+                    <Grid item xs={3} sm={2}> Date </Grid>   
+                    <Grid item xs={2} sm={2}> Amount</Grid>
 
-                    <Grid item xs={3}> Note </Grid>
+                    <MyDescHeadGrid item sm={2}> Note </MyDescHeadGrid>
                 </MyHeadGrid>
 
             </StickyTop>
@@ -112,19 +112,19 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}
                     <Grid  container item xs={12} key={index} rowSpacing={1}>
                         <Grid item xs={1}>
                             <Avatar  className={transaction.type === 'Income' ? classes.avatarIncome : classes.avatarExpense}
-                                     style={{ margin:"auto"}}>
+                                     style={{ margin:"auto", width:'30px', height:'30px'}}>
                                 <MoneyOff />
                             </Avatar>     
                         </Grid>
                      
-                        <Grid item xs={2}>
+                        <Grid item xs={3} sm={2}>
                             <MyItem variant='h5'>{transaction.category}</MyItem>
                         </Grid>
-                        <MyItemGrid  item xs={2}>{transaction.date}</MyItemGrid >   
-                        <MyItemGrid item xs={2} className={classes.amount}>${transaction.amount}</MyItemGrid>
+                        <MyItemGrid  item xs={3} sm={2}>{transaction.date}</MyItemGrid >   
+                        <MyItemGrid item xs={2} sm={2} className={classes.amount}>${transaction.amount}</MyItemGrid>
 
-                        <Grid  item xs={3} className={classes.desc}>{transaction.desc}</Grid >
-                        <Grid  item xs={2} className={classes.icons} >
+                        <MyDescGrid  item  sm={3}>{transaction.desc}</MyDescGrid  >
+                        <Grid  item xs={3} sm={2} className={classes.icons} >
                             <IconButton edge="end" aria-label="delete" 
                                     onClick={()=>handleEditTransaction(transaction.id)}>
                             <Edit />
