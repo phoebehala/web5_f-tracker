@@ -8,8 +8,8 @@ import MyProgressBar from './myProgressBar/MyProgressBar.jsx';
 // bootstrap components
 //import { Button, Card, ProgressBar, Stack } from "react-bootstrap"
 import { Card, CardHeader, CardContent, Typography, Divider, Stack, Modal, Box, TextField} from '@mui/material'
-import { MyPaper, Mybtn, SetBugetBox} from './balance.styles.js'
-import {SetBugetStyle} from './balance.styles.js'
+import { MyPaper, Mybtn} from './balance.styles.js'
+import { SetBugetStyle} from './balance.styles.js'
 import { ThemeProvider } from '@mui/material/styles'
 import {myThemeV5} from '../../myThemeV5'
 
@@ -34,7 +34,7 @@ const Balance = () => {
     const [budget ,setBudget] = useState('1000')
     const {displayedRatio, shownColor }  = useBudget(budget)
     const [isBudgetOpen, setIsBudgetOpen] = useState(false);
-console.log({budget});
+
   return (
     <MyPaper elevation={3} >
       <Card>
@@ -52,32 +52,32 @@ console.log({budget});
           <Mybtn onClick={()=>setIsBudgetOpen(true)}> Set a Budget </Mybtn>
         </ThemeProvider>
         <Modal
-        open={isBudgetOpen}
-        onClose={()=>setIsBudgetOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={SetBugetStyle}>
+          open={isBudgetOpen}
+          onClose={()=>setIsBudgetOpen(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={SetBugetStyle}>
 
-          <Stack direction="row" spacing={2} sx={{justifyContent:'space-between'}}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Enter your budget
-            </Typography>
-            <ThemeProvider theme={myThemeV5}>
-              <Mybtn onClick={()=>setIsBudgetOpen(false)}> Done </Mybtn>        
-            </ThemeProvider>
-          </Stack>
+            <Stack direction="row" spacing={2} sx={{justifyContent:'space-between'}}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Enter your budget
+              </Typography>
+              <ThemeProvider theme={myThemeV5}>
+                <Mybtn onClick={()=>setIsBudgetOpen(false)}> Done </Mybtn>        
+              </ThemeProvider>
+            </Stack>
 
-          <Box  component="form"
-              sx={{
+            <Box  component="form"
+                sx={{
                   '& > *': { mt: 2, width: '100%', height:'20px' },
-              }}>
-            <TextField  id="outlined-basic" label="Outlined" variant="outlined" 
+                }}>
+              <TextField  id="outlined-basic" label="Outlined" variant="outlined" 
                         onChange={(e)=>{setBudget(e.target.value)}}/>
 
+            </Box>
           </Box>
-        </Box>
-      </Modal>
+        </Modal>
       </Stack>
 
         <CardContent>
