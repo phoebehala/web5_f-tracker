@@ -71,6 +71,7 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
             padding: '50px',
             width:'300px',
             height:'70vh',
+            zIndex:"99"
 
           }}>
 
