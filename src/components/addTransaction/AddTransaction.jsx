@@ -2,17 +2,20 @@ import React, { useContext, useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 // contextAPI
 import {FinanceTrackerContext} from '../../context/context'
+import{SnackbarContext}  from '../../context/SnackbarContext'
 //styles
 import useStyles from './addTransaction.styles'
 import {Container} from './addTransaction.styles';
 // materialUI components
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import {Box,Stack, Grid, Paper} from '@mui/material'; 
+//components
+import MySnackbar from '../snackbar/MySnackbar';
 // data 
 import {incomeCategories, expenseCategories} from '../../data/categories'
 //utils
 import formatDate from '../../utils/formatDate'
-import { fontSize } from '@mui/system';
+
 
 const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsModalOpen}) => {
   const classes = useStyles()
@@ -21,6 +24,13 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
   const [formData, setFormData] = useState(initialFormData)
   console.log({formData});
 
+
+  const {toggleSnackbar, setSnackbarMessage} = useContext(SnackbarContext)
+  // const [isSnackbarOpen, setIsSnackbarOpen] = useState(false)
+  // const [snackbarMsg, setSnackbarMsg] = useState('')
+// console.log({snackbarMsg});
+// console.log({isSnackbarOpen});
+
   useEffect(()=>{
      //check if currentTransaction is empty obj
      if(Object.keys(currentTransaction).length!==0){
@@ -28,6 +38,8 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
        // so nedd to check if isEditMode is true  //so that if isEditMode is false(the time a user created transaction after editing ), it won't run the below code
        if(isEditMode===true){ 
          setFormData({type:currentTransaction.type, category:currentTransaction.category, amount:currentTransaction.amount , date:currentTransaction.date ,  desc:currentTransaction.desc})
+       }else{
+        setFormData(initialFormData)
        }
      }
   },[isEditMode,currentTransaction])
@@ -41,6 +53,9 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
     addTransaction( {...formData, amount:Number(formData.amount), id:uuidv4()} )
     setFormData((initialFormData)) // set back to default value
     setIsModalOpen(false)
+
+    //toggleSnackbar(true)
+    //setSnackbarMessage('The transaction has been created')
   }
   const handleEditTransaction = ()=>{
     console.log(formData);
@@ -48,12 +63,18 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
     console.log(currentTransactionId);
     editTransaction( {...formData, amount:Number(formData.amount), id:currentTransactionId } )
     setFormData((initialFormData))  // set back to default value
+
+    toggleSnackbar(true)
+    setSnackbarMessage('The transaction has been updated')
+
     setIsModalOpen(false)
+
   }
   const handleClickCancel =()=>{
     if (isEditMode === true) setIsEditMode(false)
     setIsModalOpen(false)
     setFormData((initialFormData)) // set back to default value
+
   }
 
   const selectedCats = formData.type ==='Income'? incomeCategories :expenseCategories
@@ -76,6 +97,7 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
           }}>
 
         <Grid container spacing={2} >
+        <MySnackbar></MySnackbar>
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>Type</InputLabel>
@@ -125,10 +147,12 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
             </Button>
           {isEditMode
             ?(
+
               <Button className={classes.button} variant="outlined" color="primary" fullWidth 
                       onClick={handleEditTransaction} >
               Update
               </Button>
+
 
             ):(
 
@@ -136,9 +160,13 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
                     onClick={handleCreateTransaction} >
               Create
             </Button>
-          )}
-          </Box>
 
+          )}
+                                    
+
+                  
+          </Box>
+    
         </Grid>
 
     </Paper>
