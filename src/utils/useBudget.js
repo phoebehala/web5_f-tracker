@@ -10,8 +10,8 @@ const useBudget = (max) => {
     const displayedRatio = ratio>=1 ? 1 :ratio
 
     let shownColor
-    if (ratio < 0.5) shownColor= "green"
-    else if (ratio < 0.75) shownColor= "orange"
+    if (ratio < 0.5) shownColor= "var(--main-green)"
+    else if (ratio < 0.75) shownColor= "var(--main-yellow)"
     else shownColor="red"
 
     return {displayedRatio, shownColor };

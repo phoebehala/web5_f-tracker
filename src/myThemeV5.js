@@ -2,13 +2,18 @@ import { createTheme} from '@mui/material/styles';
 
 export const myThemeV5 = createTheme({
   myBtn:{
-    backgroundColor:"red",
+    backgroundColor:"var(--main-blue)",
     color:"white",
-    border:"1px solid black",
+    border:'none',
     borderRadius:"5px",
-    fontSize: '0.875rem',
+    padding:'8px 15px',
+    fontSize: '1.2rem',
+    textTransform: 'uppercase',
+    letterSpacing:'1px',
+
+    transition: 'all .3s ease-in-out',
     '&:hover':{
-        backgroundColor:"pink"
+        backgroundColor:"var(--secondary-blue)"
     }
 }
 });

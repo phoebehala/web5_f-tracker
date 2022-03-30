@@ -1,7 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&family=Lora&family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela&family=Varela+Round&display=swap");
 
 :root{
-    --main-color: #0b0b0b
+    --main-color: #0b0b0b;
+    --main-green:#006b41;
+    --main-orange:#f15d08;
+    --main-yellow:#fb8804;
+    --main-blue:#125D98;
+    --secondary-blue:#3C8DAD;
 }
 
 .react-link{   /* custome className apply through app  */

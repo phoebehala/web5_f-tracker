@@ -3,17 +3,21 @@ import React, {useEffect, useState} from 'react';
 import { useContext } from 'react';
 import {FinanceTrackerContext} from '../../context/context'
 // materialUI components
-import { List as MUIList, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Slide, Button,
-         Box} from '@material-ui/core';
-import {Grid } from '@mui/material'
+import { List as MUIList, Avatar, IconButton, Slide, Button} from '@material-ui/core';
+import { Grid } from '@mui/material';
 
 // icons
-import { Cancel, Delete, Edit, MoneyOff, SearchOutlined  } from '@material-ui/icons';
+import { AttachMoney, Cancel, Delete, Edit, MoneyOff, SearchOutlined  } from '@material-ui/icons';
 
 // styles
 import useStyles from './transactionList.styles';
 import './transactionList.css'
-import { Container, Top, StickyTop, ListItemsWarper, MyItem, MyHeadGrid, MyDescHeadGrid, MyItemGrid, MyDescGrid } from './transactionList.styles';
+import { Container, Top, StickyTop, ListItemsWarper, MyItem, MyHeadGrid, MyDescHeadGrid, MyItemGrid, MyDescGrid,
+        Mybtn } from './transactionList.styles';
+import { ThemeProvider } from '@mui/material/styles'
+import { myThemeV5} from '../../myThemeV5'
+
+
 
 
 const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}) => {
@@ -27,6 +31,9 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}
     console.log({displayTransactions});
 
     const [query, setQuery] = useState('');
+
+
+
 
   
     useEffect(()=>{
@@ -86,11 +93,12 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}
                     </div>
 
                     <div className='btnWrapper'>
-                        <Button variant="contained"
-                                className={classes.btn}
+                    <ThemeProvider theme={myThemeV5}>
+                        <Mybtn variant="contained"
                                 onClick={()=>setIsModalOpen(true)}>
                             Create a Transaction
-                        </Button>
+                        </Mybtn>
+                        </ThemeProvider>
                     </div>             
                 </Top>
 
@@ -101,7 +109,7 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}
                     <Grid item xs={3} sm={2}> Date </Grid>   
                     <Grid item xs={2} sm={2}> Amount</Grid>
 
-                    <MyDescHeadGrid item sm={2}> Note </MyDescHeadGrid>
+                    <MyDescHeadGrid item sm={4}  >  Note</MyDescHeadGrid>
                 </MyHeadGrid>
 
             </StickyTop>
@@ -113,7 +121,8 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}
                         <Grid item xs={1}>
                             <Avatar  className={transaction.type === 'Income' ? classes.avatarIncome : classes.avatarExpense}
                                      style={{ margin:"auto", width:'30px', height:'30px'}}>
-                                <MoneyOff />
+                                {transaction.type === 'Income' ?<AttachMoney/>  :<MoneyOff />}
+                                
                             </Avatar>     
                         </Grid>
                      

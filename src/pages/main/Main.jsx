@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 // materialUI components
 import {Container as MUIContainer,
@@ -10,6 +10,7 @@ import TransactionList from '../../components/transactionList/TransactionList'
 import Summary from '../../components/summary/Summary'
 import Balance from '../../components/balance/Balance'
 import AddTransaction from '../../components/addTransaction/AddTransaction'
+import Navbar from '../../components/navBar/Navbar';
 
 const Main = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -19,24 +20,42 @@ const Main = () => {
   //console.log(currentTransaction);
   //console.log(isEditMode);
 
-  return (    
-    <MUIContainer sx={{ bgcolor: '#cfe8fc', height: '100vh' }}>
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
 
-      <Grid container rowSpacing={3} columnSpacing={{sm:2}}>   
-          <Grid item xs={12} sm={4} >
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  console.log(scrollPosition);
+
+
+  return (   
+    <>
+    <Navbar/>
+
+    <MUIContainer  sx={{  height: '100vh', marginTop:'100px' }}>
+   
+      <Grid container rowSpacing={3} columnSpacing={{xs:2,md:2}}>   
+          <Grid item xs={12} md={6} >
             <Summary title="Income"/>
           </Grid>
 
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} md={6}>
            <Summary title="Expense"/>
           </Grid>
 
-          <Grid  item xs={12} sm={4}>
+          <Grid  item xs={12}>
             <Balance/>
           </Grid>
       </Grid>
 
-      <Grid item sm={12}>
+      <Grid item sm={12} mt={3}>
           <TransactionList setIsEditMode={setIsEditMode}
                            setCurrentTransaction={setCurrentTransaction}
                            setIsModalOpen={setIsModalOpen}/>
@@ -46,12 +65,13 @@ const Main = () => {
        <AddTransaction isEditMode={isEditMode} 
                        setIsEditMode={setIsEditMode}
                        currentTransaction={currentTransaction}
-                       setIsModalOpen={setIsModalOpen}/>
+                       setIsModalOpen={setIsModalOpen}
+                       scrollPosition={scrollPosition}/>
       )}
 
     </MUIContainer >  
 
-
+    </> 
   )
 }
 

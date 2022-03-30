@@ -24,6 +24,7 @@ import { FinanceTrackerContext } from '../../context/context';
 //utils
 import { currencyFormatter } from '../../utils/formatCurrency';
 import useBudget from '../../utils/useBudget.js';
+import { height } from '@mui/system';
 
 
 
@@ -36,20 +37,19 @@ const Balance = () => {
     const [isBudgetOpen, setIsBudgetOpen] = useState(false);
 
   return (
-    <MyPaper elevation={3} >
-      <Card>
-        <CardHeader title="Total Balance" subheader="" />
-        <CardContent>
-          <Typography align="center" variant="h5"> {currencyFormatter.format(balance)}</Typography>
-        </CardContent>
+    <MyPaper elevation={3}   >
+
+      <Stack direction="row" spacing={2} p={2} sx={{justifyContent:'space-between'}}>
+        <Typography variant="h5"  >Total Balance</Typography>
+        <Typography align="center" variant="h5" color={'var(--main-blue)'} sx={{fontWeight:'bold'}}> {currencyFormatter.format(balance)}</Typography>
+      </Stack>
 
       < Divider/>
 
-
-      <Stack direction="row" spacing={2}>
+      <Stack direction="row" spacing={2} p={2} sx={{justifyContent:'space-between'}}>
         <Typography variant="h5" >Budget</Typography>
         <ThemeProvider theme={myThemeV5}>
-          <Mybtn onClick={()=>setIsBudgetOpen(true)}> Set a Budget </Mybtn>
+          <Mybtn onClick={()=>setIsBudgetOpen(true)}> SET A BUDGET </Mybtn>
         </ThemeProvider>
         <Modal
           open={isBudgetOpen}
@@ -70,7 +70,7 @@ const Balance = () => {
 
             <Box  component="form"
                 sx={{
-                  '& > *': { mt: 2, width: '100%', height:'20px' },
+                  '& > *': { mt: 3, width: '100%', height:'30px' },
                 }}>
               <TextField  id="outlined-basic" label="Outlined" variant="outlined" 
                         onChange={(e)=>{setBudget(e.target.value)}}/>
@@ -79,20 +79,21 @@ const Balance = () => {
           </Box>
         </Modal>
       </Stack>
+  
 
-        <CardContent>
-        <Typography align="right" variant="h6">
+  
+        <Typography align="right" variant="h6" width='95%' mt={3} color={'var(--main-orange)'}>
             {currencyFormatter.format(totalExpence)}
             {budget && (
-              <span style={{color:"red"}}>
+              <span style={{color:"var(--main-blue)"}}>
                 / {currencyFormatter.format(budget)}
               </span>
              )}
           </Typography>
         <MyProgressBar bgcolor={shownColor} completed={(displayedRatio*100).toFixed(0)}/>
-      </CardContent>
 
-      </Card>
+
+
     </MyPaper>
 
 

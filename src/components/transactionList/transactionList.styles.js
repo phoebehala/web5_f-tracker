@@ -7,11 +7,11 @@ import {Typography, Box, Grid} from "@mui/material";
 export default makeStyles((theme) => ({
   avatarIncome: {
     color: '#fff',
-    backgroundColor: green[500],
+    backgroundColor:'var(--main-green)',
   },
   avatarExpense: {
     color: theme.palette.getContrastText(red[500]),
-    backgroundColor: red[500],
+    backgroundColor: 'var(--main-orange)',
   },
   amount:{
     textAlign:"right",
@@ -46,6 +46,11 @@ export const Top = styled('div')({
   borderRadius: 4,
 });
 
+export const Mybtn = styled('button')(({ theme }) => ({
+  ...theme.myBtn
+
+}));
+
 export const MyHeadGrid = styled(Grid)(({ theme }) => ({
   ...theme.typography.h5,
   textAlign: 'center',
@@ -65,6 +70,7 @@ export const MyItemGrid = styled(Grid)(({ theme }) => ({
 }));
 export const MyDescHeadGrid = styled(Grid)(({ theme }) => ({
   color: theme.palette.text.secondary,
+
   [theme.breakpoints.down('sm')]: {
     display:'none'
   },

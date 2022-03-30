@@ -5,7 +5,9 @@ import {FinanceTrackerContext} from '../../context/context'
 import{SnackbarContext}  from '../../context/SnackbarContext'
 //styles
 import useStyles from './addTransaction.styles'
-import {Container} from './addTransaction.styles';
+import { ThemeProvider } from '@mui/material/styles'
+import { myThemeV5 } from '../../myThemeV5'
+import { Mybtn } from './addTransaction.styles'
 // materialUI components
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import {Box,Stack, Grid, Paper} from '@mui/material'; 
@@ -17,7 +19,7 @@ import {incomeCategories, expenseCategories} from '../../data/categories'
 import formatDate from '../../utils/formatDate'
 
 
-const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsModalOpen}) => {
+const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsModalOpen, scrollPosition}) => {
   const classes = useStyles()
 
   const initialFormData = {type:'Income', category:'', amount:'' , date:'', desc:''}
@@ -83,8 +85,8 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
     <Paper elevation={3}
           sx={{
             position:'absolute',
-            top:0,
-            bottom:0,
+     
+            top:`${scrollPosition+100}px`,
             right:0,
             left:0,
             margin:"auto",
@@ -92,7 +94,7 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
             padding: '50px',
             width:'300px',
             height:'70vh',
-            zIndex:"99"
+            zIndex:"999"
 
           }}>
 
@@ -122,18 +124,19 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
           </Grid>
 
           <Grid item xs={12}>
-            <TextField type="number" label="Amount" value={formData.amount} fullWidth 
+            <TextField type="number" label="Amount" value={formData.amount} fullWidth
                         onChange={(e)=>setFormData({ ...formData, amount:e.target.value})}/>
           </Grid>
           
           <Grid item xs={12}>
-            <TextField label="Date" type="date" value={formData.date} fullWidth 
+            <TextField label="Date" type="date" value={formData.date} fullWidth
                         onChange={(e)=>setFormData({ ...formData, date:formatDate(e.target.value)})}/>
           </Grid>
 
           <Grid item xs={12}>
             <TextField type="text" label="Note"  value={formData.desc} fullWidth  
-                        onChange={(e)=>setFormData({ ...formData, desc:e.target.value})}/>
+                        onChange={(e)=>setFormData({ ...formData, desc:e.target.value})}
+                        />
           </Grid>
 
           <Box sx={{ display:'flex',
@@ -141,25 +144,28 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
                      marginTop:'10px',
                     '& button': { m: 1 } }}>
 
-            <Button className={classes.button} variant="outlined" color="primary" fullWidth 
+            <Button className={classes.button} variant="outlined" fullWidth
                     onClick={handleClickCancel}  >
                Cancel
             </Button>
           {isEditMode
             ?(
+              <ThemeProvider theme={myThemeV5}>
+                <Mybtn fullwidth="true"
+                        onClick={handleEditTransaction} >
+                Update
+                </Mybtn>
 
-              <Button className={classes.button} variant="outlined" color="primary" fullWidth 
-                      onClick={handleEditTransaction} >
-              Update
-              </Button>
+              </ThemeProvider>
 
 
             ):(
-
-            <Button className={classes.button} variant="outlined" color="primary" fullWidth 
-                    onClick={handleCreateTransaction} >
-              Create
-            </Button>
+              <ThemeProvider theme={myThemeV5}>
+                <Mybtn fullwidth="true" 
+                        onClick={handleCreateTransaction} >
+                  Create
+                </Mybtn>
+              </ThemeProvider>
 
           )}
                                     
