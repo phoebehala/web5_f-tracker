@@ -11,6 +11,7 @@ import Summary from '../../components/summary/Summary'
 import Balance from '../../components/balance/Balance'
 import AddTransaction from '../../components/addTransaction/AddTransaction'
 import Navbar from '../../components/navBar/Navbar';
+import MySnackbar from '../../components/snackbar/MySnackbar';
 
 const Main = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -70,7 +71,7 @@ const Main = () => {
       )}
 
     </MUIContainer >  
-
+    <MySnackbar/>
     </> 
   )
 }

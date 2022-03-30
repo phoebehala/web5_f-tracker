@@ -1,29 +1,32 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useReducer } from 'react';
+import snackbarReducer from './snackbarReducer';
  
-export const SnackbarContext = createContext();
+const initialState = {
+  isOpen:false,
+  msg:''
+};
+export const SnackbarContext = createContext(initialState);
 
 export const SnackbarProvider = ({children})=>{ 
 
-    const [isSnackbarOpen, setIsSnackbarOpen] = useState(false)
-    const [snackbarMsg, setSnackbarMsg] = useState('')
-  console.log({isSnackbarOpen});
-  console.log({snackbarMsg});
+    const [state, dispatch] = useReducer(snackbarReducer, initialState)
+    console.log({state});
 
-    function  toggleSnackbar(booleanValuse) {
-      return  setIsSnackbarOpen(booleanValuse)
+    // Actions Creators
+    const showSnackbar = (strInput)=>{
+      dispatch({type:'SHOW_SNACKBAR', payload:strInput})
     }
-  
-    function  setSnackbarMessage(strInput) {
-      return  setSnackbarMsg(strInput)
+
+    const closeSnackbar = ()=>{
+      dispatch({type:'CLOSE_SNACKBAR', payload:''})
     }
-  
+
     return(
     <SnackbarContext.Provider value={{
-        isSnackbarOpen:isSnackbarOpen,
-        snackbarMsg:snackbarMsg,
-        toggleSnackbar:toggleSnackbar,
-        setSnackbarMessage:setSnackbarMessage
-        
+        isSnackbarOpen:state.isOpen,
+        snackbarMsg:state.msg,
+        showSnackbar,
+        closeSnackbar
     }}>
         {children}
     </SnackbarContext.Provider>

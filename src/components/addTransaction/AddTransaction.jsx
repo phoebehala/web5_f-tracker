@@ -27,7 +27,7 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
   console.log({formData});
 
 
-  const {toggleSnackbar, setSnackbarMessage} = useContext(SnackbarContext)
+  const { showSnackbar } = useContext(SnackbarContext)
   // const [isSnackbarOpen, setIsSnackbarOpen] = useState(false)
   // const [snackbarMsg, setSnackbarMsg] = useState('')
 // console.log({snackbarMsg});
@@ -56,8 +56,7 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
     setFormData((initialFormData)) // set back to default value
     setIsModalOpen(false)
 
-    //toggleSnackbar(true)
-    //setSnackbarMessage('The transaction has been created')
+    showSnackbar('The transaction has been created')
   }
   const handleEditTransaction = ()=>{
     console.log(formData);
@@ -66,8 +65,7 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
     editTransaction( {...formData, amount:Number(formData.amount), id:currentTransactionId } )
     setFormData((initialFormData))  // set back to default value
 
-    toggleSnackbar(true)
-    setSnackbarMessage('The transaction has been updated')
+    showSnackbar('The transaction has been updated')
 
     setIsModalOpen(false)
 
@@ -99,7 +97,7 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
           }}>
 
         <Grid container spacing={2} >
-        <MySnackbar></MySnackbar>
+
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>Type</InputLabel>

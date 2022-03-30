@@ -15,13 +15,13 @@ import { Close } from '@material-ui/icons';
 
 const MySnackbar = () => {
 
-  const {toggleSnackbar, isSnackbarOpen, snackbarMsg} = useContext(SnackbarContext)
+  const {snackbarMsg, isSnackbarOpen, closeSnackbar} = useContext(SnackbarContext)
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-    toggleSnackbar(false);
+    closeSnackbar();
   };
 
   const action = (
@@ -43,7 +43,7 @@ const MySnackbar = () => {
       open={isSnackbarOpen}
       autoHideDuration={6000}
       onClose={handleClose}
-      message={'hi'}
+      message={snackbarMsg}
       action={action}
     >
 
