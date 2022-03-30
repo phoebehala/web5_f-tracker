@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 // contextAPI
 import { useContext } from 'react';
 import {FinanceTrackerContext} from '../../context/context'
+import{SnackbarContext}  from '../../context/SnackbarContext'
 // materialUI components
 import { List as MUIList, Avatar, IconButton, Slide, Button} from '@material-ui/core';
 import { Grid } from '@mui/material';
@@ -32,8 +33,7 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}
 
     const [query, setQuery] = useState('');
 
-
-
+    const { showSnackbar } = useContext(SnackbarContext)
 
   
     useEffect(()=>{
@@ -73,7 +73,14 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}
         setCurrentTransaction(selectedTransaction)
     
     }
+    
+    const handleDeleteTransaction = (selectedId)=>{
+        deleteTransaction(selectedId)
 
+        // should've appeared after 'DELETE' data successfully when connecting to db
+        showSnackbar('The transaction has been deleted')
+
+    }
 
     return (
         <Container>
@@ -139,7 +146,7 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}
                             <Edit />
                         </IconButton>
                         <IconButton edge="end" aria-label="delete" 
-                                    onClick={()=>deleteTransaction(transaction.id)}>
+                                    onClick={()=>handleDeleteTransaction(transaction.id)}>
                             <Delete />
                         </IconButton>
                         

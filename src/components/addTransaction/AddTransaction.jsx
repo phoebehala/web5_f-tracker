@@ -11,8 +11,7 @@ import { Mybtn } from './addTransaction.styles'
 // materialUI components
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import {Box,Stack, Grid, Paper} from '@mui/material'; 
-//components
-import MySnackbar from '../snackbar/MySnackbar';
+
 // data 
 import {incomeCategories, expenseCategories} from '../../data/categories'
 //utils
@@ -26,12 +25,7 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
   const [formData, setFormData] = useState(initialFormData)
   console.log({formData});
 
-
   const { showSnackbar } = useContext(SnackbarContext)
-  // const [isSnackbarOpen, setIsSnackbarOpen] = useState(false)
-  // const [snackbarMsg, setSnackbarMsg] = useState('')
-// console.log({snackbarMsg});
-// console.log({isSnackbarOpen});
 
   useEffect(()=>{
      //check if currentTransaction is empty obj
@@ -56,6 +50,7 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
     setFormData((initialFormData)) // set back to default value
     setIsModalOpen(false)
 
+    // should've appeared after 'CREATE' data successfully when connecting to db
     showSnackbar('The transaction has been created')
   }
   const handleEditTransaction = ()=>{
@@ -65,6 +60,7 @@ const AddTransaction = ({isEditMode, setIsEditMode, currentTransaction, setIsMod
     editTransaction( {...formData, amount:Number(formData.amount), id:currentTransactionId } )
     setFormData((initialFormData))  // set back to default value
 
+    // should've appeared after 'PUT' successfully when connecting to db
     showSnackbar('The transaction has been updated')
 
     setIsModalOpen(false)

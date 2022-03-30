@@ -9,7 +9,6 @@ import { Alert, Snackbar, IconButton} from '@mui/material'
 
 
 // styles
-import './snackbar.styles'
 import { Close } from '@material-ui/icons';
 
 
@@ -46,8 +45,7 @@ const MySnackbar = () => {
       message={snackbarMsg}
       action={action}
     >
-
-      <Alert severity="success">This is a success alert — check it out!</Alert>
+      {/* <Alert severity="success">This is a success alert — check it out!</Alert> */}
     </Snackbar>
 
   )
