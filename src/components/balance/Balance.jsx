@@ -19,7 +19,7 @@ import useStyles from './balance.styles'
 // contextAPI
 import { useContext } from 'react';
 import { FinanceTrackerContext } from '../../context/context';
-
+import { BudgetContext } from '../../context/BudgetContext.js';
 
 //utils
 import { currencyFormatter } from '../../utils/formatCurrency';
@@ -28,14 +28,17 @@ import { height } from '@mui/system';
 
 
 
+
 const Balance = () => {
     const classes = useStyles()
     const {balance, totalExpence} = useContext(FinanceTrackerContext)
 
-    const [budget ,setBudget] = useState('1000')
+    const {budget,setAndsaveBudget} = useContext(BudgetContext)
+
     const {displayedRatio, shownColor }  = useBudget(budget)
     const [isBudgetOpen, setIsBudgetOpen] = useState(false);
-
+    //console.log({budget});
+ 
   return (
     <MyPaper elevation={3}   >
 
@@ -73,7 +76,7 @@ const Balance = () => {
                   '& > *': { mt: 3, width: '100%', height:'30px' },
                 }}>
               <TextField  id="outlined-basic" label="Outlined" variant="outlined" 
-                        onChange={(e)=>{setBudget(e.target.value)}}/>
+                        onChange={(e)=>{setAndsaveBudget( Number(e.target.value) )}}/>
 
             </Box>
           </Box>
