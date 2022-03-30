@@ -36,7 +36,6 @@ export const FinanceTrackerProvider = ({children})=>{
     console.log(transactions);
 
 
-
     return(
         <FinanceTrackerContext.Provider value={{
             transactions:transactions,
