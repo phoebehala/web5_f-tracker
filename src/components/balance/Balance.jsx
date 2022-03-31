@@ -73,9 +73,12 @@ const Balance = () => {
 
             <Box  component="form"
                 sx={{
-                  '& > *': { mt: 3, width: '100%', height:'30px' },
+                  '& > *': { width: '100%' },
                 }}>
               <TextField  id="outlined-basic" label="Outlined" variant="outlined" 
+                  sx={{
+                      '& > *': { mt:2,pl:1, width: '100%', height:'50px' },
+                  }}
                         onChange={(e)=>{setAndsaveBudget( Number(e.target.value) )}}/>
 
             </Box>
