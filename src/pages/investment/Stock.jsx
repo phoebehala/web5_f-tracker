@@ -1,5 +1,6 @@
-import React, { useEffect,  useState } from 'react'
-
+import React, { useEffect,  useState, useContext } from 'react'
+//contextAPI
+import {SnackbarContext} from '../../context/SnackbarContext'
 // materialUI components
 import {Container as MUIContainer,
 } from '@mui/material'; //  centers the content horizontally
@@ -15,6 +16,7 @@ import Navbar from '../../components/navBar/Navbar';
 import StockGraph from '../../components/stockGraph/StockGraph'
 import StockDailyInfo from '../../components/stockDailyInfo/StockDailyInfo.jsx';
 import Footer from '../../components/footer/Footer.jsx';
+import MySnackbar from '../../components/snackbar/MySnackbar';
 
 //api
 import { getDailyBySymbol } from '../../api';
@@ -23,11 +25,13 @@ import {companies} from '../../data/companies';
 // utils
 import {convertToSymbol} from '../../utils/convertToSymbol';
 
+
 const Stock = () => {
 
   const [company, setCompany] = useState('MSFT');
   const [stockData, setStockData] = useState()
 
+  const { showSnackbar } = useContext(SnackbarContext)
 
   useEffect(()=>{
 
@@ -37,7 +41,28 @@ const Stock = () => {
       setStockData(data)
 
     })
-    .catch((err)=>{console.log(err);})
+    .catch((err)=>{
+      if (err.response) {
+        // client received an error response (5xx, 4xx)
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+        if(err.response.status === 429){
+          showSnackbar(err.response.data.message+'! please try again latter')
+        }else{
+          showSnackbar('Somthing wen wrong ! please try again latter')
+        }
+      } else if (err.request) {
+        // client never received a response, or request never left
+        console.log(err.request);
+        showSnackbar('Somthing wen wrong ! please try again latter')
+      } else {
+        // anything else
+        console.log('Error', err.message);
+        showSnackbar('Somthing wen wrong ! please try again latter')
+      }
+      console.log(err.config);
+  })
   }, [company])
   console.log(stockData);
 
@@ -80,6 +105,7 @@ const Stock = () => {
         {stockData && 
           <StockGraph stockData={stockData} company={company} /> }
 
+      <MySnackbar/>
       <Footer/>
     </>
   )

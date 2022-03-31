@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+//contextAPI
+import {SnackbarContext} from '../../context/SnackbarContext'
 //api
 import { getDailyByCompany  } from '../../api';
 // materialUI components
@@ -12,6 +14,8 @@ const StockDailyInfo = ( {company} ) => {
 
     const [dailyInfo, setDailyInfo] = useState({})
 
+    const { showSnackbar } = useContext(SnackbarContext)
+
     useEffect(()=>{
         getDailyByCompany(company)
         .then((data)=>{
@@ -19,7 +23,29 @@ const StockDailyInfo = ( {company} ) => {
             setDailyInfo(data)
       
           })
-          .catch((err)=>{console.log(err);})
+        .catch((err)=>{
+
+            if (err.response) {
+              // client received an error response (5xx, 4xx)
+              console.log(err.response.data);
+              console.log(err.response.status);
+              console.log(err.response.headers);
+              if(err.response.status === 429){
+                showSnackbar(err.response.data.message+'! please try again latter')
+              }else{
+                showSnackbar('Somthing wen wrong ! please try again latter')
+              }
+            } else if (err.request) {
+              // client never received a response, or request never left
+              console.log(err.request);
+              showSnackbar('Somthing wen wrong ! please try again latter')
+            } else {
+              // anything else
+              console.log('Error', err.message);
+              showSnackbar('Somthing wen wrong ! please try again latter')
+            }
+            console.log(err.config);
+        })
     },[company])
     console.log(dailyInfo);
 

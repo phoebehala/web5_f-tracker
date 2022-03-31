@@ -5,7 +5,7 @@ const URL = 'https://alpha-vantage.p.rapidapi.com/query'
 // aync function return a promise
 export const getDailyBySymbol = async( selectedSymbol )=>{
 
-    try {
+
         const res = await axios.get( URL,{
           params: {
             function: 'TIME_SERIES_DAILY_ADJUSTED',
@@ -20,14 +20,12 @@ export const getDailyBySymbol = async( selectedSymbol )=>{
         });
         console.log(res); 
         return res.data
-    } catch (error) {
-        console.log(error);
-    }
+   
 }
 
 export const getDailyByCompany = async( selectedSymbol )=>{
 
-    try {
+
         const res = await axios.get( URL,{
           params: {
             function: 'GLOBAL_QUOTE',
@@ -41,10 +39,9 @@ export const getDailyByCompany = async( selectedSymbol )=>{
         });
         console.log(res); 
         return res.data
-    } catch (error) {
-        console.log(error);
-    }
+
 }
+
 export const getSymbolByName = async( name )=>{
     try {
         const res = await axios.get( URL,{
