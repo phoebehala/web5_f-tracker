@@ -20,7 +20,7 @@ import Footer from '../../components/footer/Footer.jsx';
 import { getDailyBySymbol } from '../../api';
 //data
 import {companies} from '../../data/companies';
-// custom hook
+// utils
 import {convertToSymbol} from '../../utils/convertToSymbol';
 
 const Stock = () => {
@@ -69,13 +69,11 @@ const Stock = () => {
                   <MenuItem value={convertToSymbol(c)} key={i}>{c}</MenuItem>
                 ))}
 
-
-                {/* <MenuItem value={'TSLA'}>Tesla</MenuItem> */}
               </Select>
             </FormControl>
           </Box>
 
-          {stockData && 
+        {stockData && 
             <StockDailyInfo company={company} /> }
         </MUIContainer>
 
