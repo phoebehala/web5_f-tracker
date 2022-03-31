@@ -16,8 +16,8 @@ export const convertToSymbol = (companyName) => {
         case 'Amazon':
             return 'AMZN'
 
-        case 'Saudi Aramco':
-            return '2222.SR'
+        case 'Walmart':
+            return 'WMT'
     
         case 'Berkshire Hathaway':
             return 'BRK-A'
@@ -29,7 +29,37 @@ export const convertToSymbol = (companyName) => {
             return 'FB'
 
         case 'TSMC':
-            return 'TSM'  
+            return 'TSM'
+
+        case 'Alibaba':
+            return 'BABA'
+
+        case 'Walt Disney':
+            return 'DIS'
+        
+        case 'Intel':
+            return 'INTC'
+
+        case 'McDonald':
+            return 'MCD'
+        
+        case 'Cloudflare':
+            return 'NET'
+
+        case 'Airbnb':
+            return 'ABNB'
+
+        case 'Visa':
+            return 'v'
+
+        case 'Boeing':
+            return 'BA'
+
+        case 'Snowflake':
+            return 'SNOW'
+        
+        case "Domino's Pizza":
+            return 'DPZ'
 
         default:
             return symbol;    
