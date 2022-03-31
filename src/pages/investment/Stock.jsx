@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Navbar from '../../components/navBar/Navbar';
 import StockGraph from '../../components/stockGraph/StockGraph'
 import StockDailyInfo from '../../components/stockDailyInfo/StockDailyInfo.jsx';
+import Footer from '../../components/footer/Footer.jsx';
 
 //api
 import { getDailyBySymbol } from '../../api';
@@ -81,6 +82,7 @@ const Stock = () => {
         {stockData && 
           <StockGraph stockData={stockData} company={company} /> }
 
+      <Footer/>
     </>
   )
 }

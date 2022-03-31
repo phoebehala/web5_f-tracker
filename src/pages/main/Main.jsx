@@ -12,6 +12,7 @@ import Balance from '../../components/balance/Balance'
 import AddTransaction from '../../components/addTransaction/AddTransaction'
 import Navbar from '../../components/navBar/Navbar';
 import MySnackbar from '../../components/snackbar/MySnackbar';
+import Footer from '../../components/footer/Footer.jsx';
 
 const Main = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -40,7 +41,7 @@ const Main = () => {
     <>
     <Navbar/>
 
-    <MUIContainer  sx={{  height: '100vh', marginTop:'100px' }}>
+    <MUIContainer  sx={{ marginTop:'100px'}}>
    
       <Grid container rowSpacing={3} columnSpacing={{xs:2,md:2}}>   
           <Grid item xs={12} md={6} >
@@ -70,8 +71,12 @@ const Main = () => {
                        scrollPosition={scrollPosition}/>
       )}
 
+        
     </MUIContainer >  
+
     <MySnackbar/>
+      <Footer/>
+
     </> 
   )
 }
