@@ -12,7 +12,7 @@ import { Alert, Snackbar, IconButton} from '@mui/material'
 import { Close } from '@material-ui/icons';
 
 
-const MySnackbar = () => {
+const MySnackbar = ( {mySeveryity} ) => {
 
   const {snackbarMsg, isSnackbarOpen, closeSnackbar} = useContext(SnackbarContext)
 
@@ -45,7 +45,7 @@ const MySnackbar = () => {
       message={snackbarMsg}
       action={action}
     >
-      {/* <Alert severity="success">This is a success alert — check it out!</Alert> */}
+      <Alert severity={mySeveryity ==='warning' ?"warning" :"success"}>{snackbarMsg}</Alert>
     </Snackbar>
 
   )

@@ -74,7 +74,7 @@ const Main = () => {
         
     </MUIContainer >  
 
-    <MySnackbar/>
+    <MySnackbar mySeveryity={'success'}/>
       <Footer/>
 
     </> 

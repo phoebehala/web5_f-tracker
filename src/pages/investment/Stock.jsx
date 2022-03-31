@@ -105,7 +105,7 @@ const Stock = () => {
         {stockData && 
           <StockGraph stockData={stockData} company={company} /> }
 
-      <MySnackbar/>
+      <MySnackbar mySeveryity={'warning'}/>
       <Footer/>
     </>
   )
