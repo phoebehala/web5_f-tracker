@@ -2,16 +2,26 @@ import React, {useEffect, useState} from 'react';
 // contextAPI
 import { useContext } from 'react';
 import {FinanceTrackerContext} from '../../context/context'
+import{SnackbarContext}  from '../../context/SnackbarContext'
 // materialUI components
-import { List as MUIList, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Slide } from '@material-ui/core';
+import { List as MUIList, Avatar, IconButton, Slide, Button} from '@material-ui/core';
+import { Grid } from '@mui/material';
+
 // icons
-import { Cancel, Delete, Edit, MoneyOff, SearchOutlined  } from '@material-ui/icons';
+import { AttachMoney, Cancel, Delete, Edit, MoneyOff, SearchOutlined  } from '@material-ui/icons';
 
 // styles
 import useStyles from './transactionList.styles';
 import './transactionList.css'
+import { Container, Top, StickyTop, ListItemsWarper, MyItem, MyHeadGrid, MyDescHeadGrid, MyItemGrid, MyDescGrid,
+        Mybtn } from './transactionList.styles';
+import { ThemeProvider } from '@mui/material/styles'
+import { myThemeV5} from '../../myThemeV5'
 
-const TransactionList = ({setIsEditMode,  setCurrentTransaction}) => {
+
+
+
+const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}) => {
     const classes = useStyles();
 
     const {transactions, deleteTransaction} = useContext(FinanceTrackerContext)
@@ -22,6 +32,9 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction}) => {
     console.log({displayTransactions});
 
     const [query, setQuery] = useState('');
+
+    const { showSnackbar } = useContext(SnackbarContext)
+
   
     useEffect(()=>{
         if(query.length>0){
@@ -53,53 +66,99 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction}) => {
 
     const handleEditTransaction = (selectedId)=>{
         // open addTransaction(isEditMode) and pass id to it
+        setIsModalOpen(true)
         setIsEditMode(true)
         const selectedTransaction =transactions.find((transaction)=>transaction.id===selectedId)
         console.log(selectedTransaction);
         setCurrentTransaction(selectedTransaction)
     
     }
+    
+    const handleDeleteTransaction = (selectedId)=>{
+        deleteTransaction(selectedId)
 
+        // should've appeared after 'DELETE' data successfully when connecting to db
+        showSnackbar('The transaction has been deleted')
+
+    }
 
     return (
-        <MUIList dense={false} className={classes.list}>
+        <Container>
 
-            <div className='SearchWrapper'>
-                <div className='IconWrapper'>
-                    <SearchOutlined />
-                </div>
-                <input className='SearchInput'
-                       placeholder="Search…" 
-                       value={query}
-                       onChange={(e) => handleSearchInput(e.target.value)} />
+            <StickyTop>
+                <Top>
+                    <div className='SearchWrapper'>
+                        <div className='IconWrapper'>
+                            <SearchOutlined />
+                        </div>
+                        <input className='SearchInput'
+                            placeholder="Search…" 
+                            value={query}
+                            onChange={(e) => handleSearchInput(e.target.value)} />
 
-                <Cancel onClick={handleCancelSearch }/>
-            </div>
+                        <Cancel onClick={handleCancelSearch }/>
+                    </div>
 
-        {displayTransactions.map((transaction) => (
-        <Slide key={transaction.id} direction="down" in mountOnEnter unmountOnExit>
-            <ListItem >
-                <ListItemAvatar  >
-                    <Avatar  className={transaction.type === 'Income' ? classes.avatarIncome : classes.avatarExpense}>
-                        <MoneyOff />
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText  primary={transaction.category} secondary={`$${transaction.amount} - ${transaction.desc}- ${transaction.date}`}/>
-                <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete" 
-                                onClick={()=>handleEditTransaction(transaction.id)}>
-                        <Edit />
-                    </IconButton>
-                    <IconButton edge="end" aria-label="delete" 
-                                onClick={()=>deleteTransaction(transaction.id)}>
-                        <Delete />
-                    </IconButton>
-                </ListItemSecondaryAction>
-            </ListItem>
-        </Slide>
-        ))}
+                    <div className='btnWrapper'>
+                    <ThemeProvider theme={myThemeV5}>
+                        <Mybtn variant="contained"
+                                onClick={()=>setIsModalOpen(true)}>
+                            Create a Transaction
+                        </Mybtn>
+                        </ThemeProvider>
+                    </div>             
+                </Top>
 
-        </MUIList>
+                <MyHeadGrid container item xs={12} sm={12}>
+                    <Grid item xs={1} sm={1}> Type </Grid>
+
+                    <Grid item xs={3} sm={2}> Category</Grid>
+                    <Grid item xs={3} sm={2}> Date </Grid>   
+                    <Grid item xs={2} sm={2}> Amount</Grid>
+
+                    <MyDescHeadGrid item sm={4}  >  Note</MyDescHeadGrid>
+                </MyHeadGrid>
+
+            </StickyTop>
+
+            <ListItemsWarper>
+                {displayTransactions.map((transaction, index) => (
+                <Slide key={transaction.id} direction="down" in mountOnEnter unmountOnExit>
+                    <Grid  container item xs={12} key={index} rowSpacing={1}>
+                        <Grid item xs={1}>
+                            <Avatar  className={transaction.type === 'Income' ? classes.avatarIncome : classes.avatarExpense}
+                                     style={{ margin:"auto", width:'30px', height:'30px'}}>
+                                {transaction.type === 'Income' ?<AttachMoney/>  :<MoneyOff />}
+                                
+                            </Avatar>     
+                        </Grid>
+                     
+                        <Grid item xs={3} sm={2}>
+                            <MyItem variant='h5'>{transaction.category}</MyItem>
+                        </Grid>
+                        <MyItemGrid  item xs={3} sm={2}>{transaction.date}</MyItemGrid >   
+                        <MyItemGrid item xs={2} sm={2} className={classes.amount}>${transaction.amount}</MyItemGrid>
+
+                        <MyDescGrid  item  sm={3}>{transaction.desc}</MyDescGrid  >
+                        <Grid  item xs={3} sm={2} className={classes.icons} >
+                            <IconButton edge="end" aria-label="delete" 
+                                    onClick={()=>handleEditTransaction(transaction.id)}>
+                            <Edit />
+                        </IconButton>
+                        <IconButton edge="end" aria-label="delete" 
+                                    onClick={()=>handleDeleteTransaction(transaction.id)}>
+                            <Delete />
+                        </IconButton>
+                        
+                        </Grid>
+                    </Grid>
+                </Slide>
+                ))}
+
+            </ListItemsWarper>
+                
+
+        </Container>
 
     )
 }

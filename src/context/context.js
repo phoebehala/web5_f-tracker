@@ -16,6 +16,9 @@ export const FinanceTrackerProvider = ({children})=>{
     const balance = transactions.reduce((accumulator, currentValue) =>{
         return(currentValue.type === 'Expense'? accumulator-currentValue.amount : accumulator+currentValue.amount)
     }, 0)
+    const totalExpence = transactions.reduce((accumulator, currentValue) =>{
+        return(currentValue.type === 'Expense'?  accumulator += currentValue.amount: accumulator += 0)
+    }, 0)
    
     // Actions Creators
     const deleteTransaction = (id)=>{
@@ -33,11 +36,11 @@ export const FinanceTrackerProvider = ({children})=>{
     console.log(transactions);
 
 
-
     return(
         <FinanceTrackerContext.Provider value={{
             transactions:transactions,
             balance:balance,
+            totalExpence:totalExpence,
             deleteTransaction:deleteTransaction,
             addTransaction:addTransaction,
             editTransaction:editTransaction,

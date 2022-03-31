@@ -1,10 +1,20 @@
 import { makeStyles } from "@material-ui/core";
 
-export default makeStyles( ()=>({
+import { styled } from '@mui/material/styles';
+import { Paper} from "@mui/material";
+
+export default makeStyles( (theme)=>({
     income: {
-        boxShadow: '2px 2px 3px 1px #297F87'
+        color:'#006b41'
     },
     expense: {
-        boxShadow: '2px 2px 3px 1px #F6D167'
+        color:'#f15d08'
     },
 }))
+
+export const MyPaper = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(2),
+    color: theme.palette.text.secondary,
+    
+}));

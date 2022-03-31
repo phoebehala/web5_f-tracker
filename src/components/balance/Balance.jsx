@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+// component
+import MyProgressBar from './myProgressBar/MyProgressBar.jsx';
 
 // materialUI components
-import { Card, CardHeader, CardContent, Typography, Divider } from '@material-ui/core';
+//import { Divider } from '@material-ui/core';
 // bootstrap components
 //import { Button, Card, ProgressBar, Stack } from "react-bootstrap"
-import {  ProgressBar } from "react-bootstrap"
+import { Card, CardHeader, CardContent, Typography, Divider, Stack, Modal, Box, TextField} from '@mui/material'
+import { MyPaper, Mybtn} from './balance.styles.js'
+import { SetBugetStyle} from './balance.styles.js'
+import { ThemeProvider } from '@mui/material/styles'
+import {myThemeV5} from '../../myThemeV5'
 
 // styles
 import useStyles from './balance.styles'
@@ -12,55 +19,89 @@ import useStyles from './balance.styles'
 // contextAPI
 import { useContext } from 'react';
 import { FinanceTrackerContext } from '../../context/context';
+import { BudgetContext } from '../../context/BudgetContext.js';
 
 //utils
 import { currencyFormatter } from '../../utils/formatCurrency';
+import useBudget from '../../utils/useBudget.js';
+import { height } from '@mui/system';
+
+
 
 
 const Balance = () => {
     const classes = useStyles()
-    const {balance} = useContext(FinanceTrackerContext)
+    const {balance, totalExpence} = useContext(FinanceTrackerContext)
 
+    const {budget,setAndsaveBudget} = useContext(BudgetContext)
+
+    const {displayedRatio, shownColor }  = useBudget(budget)
+    const [isBudgetOpen, setIsBudgetOpen] = useState(false);
+    //console.log({budget});
+ 
   return (
-    <Card className={classes.root}>
-        
-      <CardHeader title="Expense Tracker" subheader="Total Balance" />
-        <ProgressBar
-            className="rounded-pill"
-            style={{height:"10px"}}
-            variant={getProgressBarVariant(1000, 2000)}
-            min={0}
-            max={2000}
-            now={1000}
-          />
-      <CardContent>
-        <Typography align="center" variant="h5">Total Balance {currencyFormatter.format(balance)}</Typography>
-      </CardContent>
+    <MyPaper elevation={3}   >
 
-      <Divider className={classes.divider} />
+      <Stack direction="row" spacing={2} p={2} sx={{justifyContent:'space-between'}}>
+        <Typography variant="h5"  >Total Balance</Typography>
+        <Typography align="center" variant="h5" color={'var(--main-blue)'} sx={{fontWeight:'bold'}}> {currencyFormatter.format(balance)}</Typography>
+      </Stack>
 
-      <CardHeader title="Expense Tracker" subheader="Budget" />
-      <CardContent >
+      < Divider/>
 
-      </CardContent>
-    </Card>
+      <Stack direction="row" spacing={2} p={2} sx={{justifyContent:'space-between'}}>
+        <Typography variant="h5" >Budget</Typography>
+        <ThemeProvider theme={myThemeV5}>
+          <Mybtn onClick={()=>setIsBudgetOpen(true)}> SET A BUDGET </Mybtn>
+        </ThemeProvider>
+        <Modal
+          open={isBudgetOpen}
+          onClose={()=>setIsBudgetOpen(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={SetBugetStyle}>
 
-        /*
-    <Card >
-    <Card.Body>
-      <Card.Title className="d-flex justify-content-between align-items-baseline fw-normal mb-3">
-   title
-      </Card.Title>
-   
-        <ProgressBar
-        className="rounded-pill"
+            <Stack direction="row" spacing={2} sx={{justifyContent:'space-between'}}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Enter your budget
+              </Typography>
+              <ThemeProvider theme={myThemeV5}>
+                <Mybtn onClick={()=>setIsBudgetOpen(false)}> Done </Mybtn>        
+              </ThemeProvider>
+            </Stack>
 
-        />
+            <Box  component="form"
+                sx={{
+                  '& > *': { width: '100%' },
+                }}>
+              <TextField  id="outlined-basic" label="Outlined" variant="outlined" 
+                  sx={{
+                      '& > *': { mt:2,pl:1, width: '100%', height:'50px' },
+                  }}
+                        onChange={(e)=>{setAndsaveBudget( Number(e.target.value) )}}/>
+
+            </Box>
+          </Box>
+        </Modal>
+      </Stack>
   
 
-    </Card.Body>
-  </Card>
-  */
+  
+        <Typography align="right" variant="h6" width='95%' mt={3} color={'var(--main-orange)'}>
+            {currencyFormatter.format(totalExpence)}
+            {budget && (
+              <span style={{color:"var(--main-blue)"}}>
+                / {currencyFormatter.format(budget)}
+              </span>
+             )}
+          </Typography>
+        <MyProgressBar bgcolor={shownColor} completed={(displayedRatio*100).toFixed(0)}/>
+
+
+
+    </MyPaper>
+
 
   )
 }
@@ -68,10 +109,5 @@ const Balance = () => {
 
 export default Balance
 
-function getProgressBarVariant(amount, max) {
-    const ratio = amount / max
-    if (ratio < 0.5) return "primary"
-    if (ratio < 0.75) return "warning"
-    return "danger"
-  }
+
   

@@ -1,13 +1,17 @@
 import React from 'react'
 
 // materialUI components
-import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
+import { Paper, Stack, Typography} from '@mui/material'
 import { Doughnut } from 'react-chartjs-2';
 
 // styles
-import useStyles from './summary.styles'
+import useStyles from './summary.styles';
+import './summary.styles';
+import {MyPaper} from './summary.styles'
+
 //custom hook
 import useTransactions from '../../utils/useTransactions';
+
 //utils
 import { currencyFormatter } from '../../utils/formatCurrency';
 
@@ -17,13 +21,15 @@ const Summary = ({title}) => {
     const { total, chartData } = useTransactions(title);
 
   return (
-    <Card className={title === "Income"?classes.income :classes.expense} style={{margin:"0 5px"}}>
-      <CardHeader title={title} />
-      <CardContent>
-        <Typography variant="h5">{currencyFormatter.format(total)}</Typography>
-        <Doughnut data={chartData} />
-      </CardContent>
-    </Card>
+
+    <MyPaper elevation={3} className="summary-paper">
+      <Stack direction="row" spacing={2}>
+        <Typography variant="h5" >{title}</Typography>
+        <Typography variant="h5"  className={title === "Income"?classes.income :classes.expense}>{currencyFormatter.format(total)}</Typography>
+      </Stack>
+      <Doughnut data={chartData} />
+    </MyPaper>
+
   )
 }
 
