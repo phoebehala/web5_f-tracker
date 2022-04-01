@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 // contextAPI
 import { useContext } from 'react';
-import {FinanceTrackerContext} from '../../context/context'
-import{SnackbarContext}  from '../../context/SnackbarContext'
+import { FinanceTrackerContext} from '../../context/context'
+import{ SnackbarContext }  from '../../context/SnackbarContext'
 // materialUI components
-import { List as MUIList, Avatar, IconButton, Slide, Button} from '@material-ui/core';
+import { List as MUIList, Avatar, IconButton, Slide} from '@material-ui/core';
 import { Grid } from '@mui/material';
 
 // icons
@@ -44,7 +44,7 @@ const TransactionList = ({setIsEditMode,  setCurrentTransaction, setIsModalOpen}
             console.log({filteredTransactionsAsPerCat});
             console.log({filteredTransactionsAsPerdesc});
             // intersection
-           const intersectionTransactions = filteredTransactionsAsPerCat.filter(n => !filteredTransactionsAsPerdesc.some(n2 => n.id == n2.id));
+           const intersectionTransactions = filteredTransactionsAsPerCat.filter(n => !filteredTransactionsAsPerdesc.some(n2 => n.id === n2.id));
             // union
             const unionTransactions =filteredTransactionsAsPerCat.concat(filteredTransactionsAsPerdesc)
             console.log({unionTransactions});

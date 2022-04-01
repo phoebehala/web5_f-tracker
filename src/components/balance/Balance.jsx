@@ -7,14 +7,11 @@ import MyProgressBar from './myProgressBar/MyProgressBar.jsx';
 //import { Divider } from '@material-ui/core';
 // bootstrap components
 //import { Button, Card, ProgressBar, Stack } from "react-bootstrap"
-import { Card, CardHeader, CardContent, Typography, Divider, Stack, Modal, Box, TextField} from '@mui/material'
+import { Typography, Divider, Stack, Modal, Box, TextField} from '@mui/material'
 import { MyPaper, Mybtn} from './balance.styles.js'
 import { SetBugetStyle} from './balance.styles.js'
 import { ThemeProvider } from '@mui/material/styles'
 import {myThemeV5} from '../../myThemeV5'
-
-// styles
-import useStyles from './balance.styles'
 
 // contextAPI
 import { useContext } from 'react';
@@ -24,13 +21,11 @@ import { BudgetContext } from '../../context/BudgetContext.js';
 //utils
 import { currencyFormatter } from '../../utils/formatCurrency';
 import useBudget from '../../utils/useBudget.js';
-import { height } from '@mui/system';
-
 
 
 
 const Balance = () => {
-    const classes = useStyles()
+
     const {balance, totalExpence} = useContext(FinanceTrackerContext)
 
     const {budget,setAndsaveBudget} = useContext(BudgetContext)

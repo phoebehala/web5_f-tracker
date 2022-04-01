@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { red, green } from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
 
 import { styled } from '@mui/material/styles';
 import {Typography, Box, Grid} from "@mui/material";

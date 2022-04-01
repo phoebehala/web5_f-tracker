@@ -1,15 +1,7 @@
-import { makeStyles } from '@material-ui/core/styles';
-
 //mui v5
 import { styled } from '@mui/material/styles';
-import { Paper, Button, Box} from "@mui/material";
+import { Paper} from "@mui/material";
 
-export default makeStyles((theme) => ({
-
-  divider: {
-    margin: '20px 0',
-  },
-}));
 
 export const MyPaper = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,

@@ -1,5 +1,5 @@
-import {createTheme} from "@material-ui/core";
-import { red, green,blue } from '@material-ui/core/colors';
+import { createTheme } from "@material-ui/core";
+import { blue } from '@material-ui/core/colors';
 
 export const myTheme = createTheme({
     palette:{

@@ -1,7 +1,7 @@
 import React from 'react'
 
 // materialUI components
-import { Paper, Stack, Typography} from '@mui/material'
+import { Stack, Typography} from '@mui/material'
 import { Doughnut } from 'react-chartjs-2';
 
 // styles
