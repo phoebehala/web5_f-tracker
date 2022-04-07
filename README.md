@@ -23,7 +23,7 @@
 Expense tracker app is a kind of daily used app and I always wonder how it works.
 As per the experience of using this kind of app, I thought it would be great to have a budget warning or integrate some financial information in order to provide good user experience.
 
-### Purposes / Intention
+### Purposes / Intentions
 - To use the latest version of mui(v5)
 - To learn how to display chart in react.js
 - To consolidate the usage of contextAPI, useReducer, useState, useRef
@@ -36,7 +36,7 @@ As per the experience of using this kind of app, I thought it would be great to 
 
 #### react.js
 - contextAPI, binded with multiple contextAPI
-- react.js: useReducer(), useState(), useRef()
+- useReducer(), useState(), useRef()
 - custom hook
 - react-router-dom
 
@@ -73,6 +73,7 @@ As per the experience of using this kind of app, I thought it would be great to 
 - convert to currency format by Intl.NumberFormat
 - change the format of date
 - sort dummy data
+- To display progress icon while fetching data
 -->
 
 ## Screenshots
