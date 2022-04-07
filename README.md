@@ -1,4 +1,3 @@
-test
 # Finance Tracker
 > Expense and budget tracker as well as keeping track on the stock market.
 > Live demo [_here_](https://stupendous-torte-d9a668.netlify.app).
@@ -59,13 +58,13 @@ As per the experience of using this kind of app, I thought it would be great to 
 - Created a popover with pure react to implement above actions
 - The cahrt reflect the changes immediately whenever the transactions updated
 
-#### search and filter transactions
+#### Search and Filter transactions
 
-#### budget warning
+#### Budget Warning
 - a progress bar with pure react
 - The color of bar changs when it hits the warning amount
-#### balance calculation
-#### prompt info with snackbar
+#### Total Balance Calculation
+#### Prompt info. with snackbar
 - The success info prompted once transaction is successfully created / edited / deleted
 - The warning info prompted once failing to get data from stock API
 - Reusing the same snackbar component with contextAPI
