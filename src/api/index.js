@@ -14,7 +14,7 @@ export const getDailyBySymbol = async( selectedSymbol )=>{
           },
           headers: {
             'x-rapidapi-host': 'alpha-vantage.p.rapidapi.com',
-            'x-rapidapi-key': process.env.REACT_APP_RAPID_API_TRAVEL_API_KEY
+            'x-rapidapi-key': process.env.REACT_APP_RAPID_API_STOCK_API_KEY
           }
         });
         console.log(res); 
@@ -31,7 +31,7 @@ export const getDailyByCompany = async( selectedSymbol )=>{
           },
           headers: {
             'x-rapidapi-host': 'alpha-vantage.p.rapidapi.com',
-            'x-rapidapi-key': process.env.REACT_APP_RAPID_API_TRAVEL_API_KEY
+            'x-rapidapi-key': process.env.REACT_APP_RAPID_API_STOCK_API_KEY
           }
         });
         console.log(res); 
