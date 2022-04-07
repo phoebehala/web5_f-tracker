@@ -1,5 +1,5 @@
 # Project Name: Finance Tracker
-> Expense and budget tracker as well as keeping track on the stock market
+> Expense and budget tracker as well as keeping track on the stock market.
 > Live demo [_here_](https://stupendous-torte-d9a668.netlify.app).
 
 ## Table of Contents
@@ -19,11 +19,11 @@
 
 ## General Information
 
-#### Idea / Motivation
+### Idea / Motivation
 Expense tracker app is a kind of daily used app and I always wonder how it works.
 As per the experience of using this kind of app, I thought it would be great to have a budget warning or integrate some financial information in order to provide good user experience.
 
-#### Purposes / Intention
+### Purposes / Intention
 - To use the latest version of mui(v5)
 - To learn how to display chart in react.js
 - To consolidate the usage of contextAPI, useReducer, useState, useRef
@@ -50,7 +50,6 @@ As per the experience of using this kind of app, I thought it would be great to 
 #### other libraries
 - chart.js
 - plotly.js
-
 
 
 ## Features
@@ -87,9 +86,7 @@ What are the project requirements/dependencies? Where are they listed? A require
 set up
 To run this project, install it locally using npm:
 ```
-$ cd ../lorem
-$ npm install
-$ npm start
+$ npm run start
 ```
 
 ## API Source
