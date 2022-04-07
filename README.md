@@ -1,4 +1,4 @@
-# Project Name: Finance Tracker
+# Finance Tracker
 > Expense and budget tracker as well as keeping track on the stock market.
 > Live demo [_here_](https://stupendous-torte-d9a668.netlify.app).
 
