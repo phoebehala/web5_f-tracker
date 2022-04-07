@@ -79,15 +79,15 @@ As per the experience of using this kind of app, I thought it would be great to 
 ![Example screenshot](./img/screenshot.png)
 
 
-
+<!--
 ## Setup
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
-
-set up
-To run this project, install it locally using npm:
+1. To create API key for alpha-vantage
+2. To run this project, install it locally using npm:
 ```
+$ npm i
 $ npm run start
 ```
+-->
 
 ## API Source
 - alpha-vantage
