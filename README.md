@@ -29,6 +29,7 @@ As per the experience of using this kind of app, I thought it would be great to 
 - To consolidate the usage of contextAPI, useReducer, useState, useRef
 - To use custome hook
 - To work with API and handle the error
+- To practice CRUD
 - To try keeping my components small or making them reusable by separating files and creating util files
 
 
