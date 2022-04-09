@@ -37,8 +37,8 @@ As per the experience of using this kind of app, I thought it would be great to 
 
 #### react.js
 - contextAPI, binded with multiple contextAPI
-- useReducer(), useState(), useRef()
-- custom hook
+- useReducer(), useState(), useRef(), react events
+- custom hooks
 - react-router-dom
 
 #### styles
@@ -56,6 +56,7 @@ As per the experience of using this kind of app, I thought it would be great to 
 ## Features
 #### transactions for income and expense
 - create / edit / delete
+- Used the same component (addTransaction.jsx) to switch created mode or edited mode
 - Created a popover with pure react to implement above actions
 - The cahrt reflect the changes immediately whenever the transactions updated
 
