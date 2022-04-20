@@ -6,9 +6,10 @@
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
-* [Screenshots](#screenshots)
-* [Setup](#setup)
+* [API Source](#API-Source)
+* [Room for Improvement](#room-for-improvement)
 <!-- 
+* [Setup](#setup)
 * [Usage](#usage)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
@@ -27,7 +28,7 @@ As per the experience of using this kind of app, I thought it would be great to 
 - To use the latest version of mui(v5)
 - To learn how to display chart in react.js
 - To consolidate the usage of contextAPI, useReducer, useState, useRef
-- To use custome hook
+- To use custom hooks
 - To work with API and handle the error
 - To practice CRUD
 - To try keeping my components small or making them reusable by separating files and creating util files
@@ -37,12 +38,12 @@ As per the experience of using this kind of app, I thought it would be great to 
 
 #### react.js
 - contextAPI, binded with multiple contextAPI
-- useReducer(), useState(), useRef(), react events
+- useReducer(), useState(), useRef(), react events, , useEffect()
 - custom hooks
 - react-router-dom
 
 #### styles
-- mui v5: custom theme, components, styles
+- mui v5: custom theme (custom button), components, styles
 
 #### others
 - worked with API, axios, error handling
@@ -77,9 +78,9 @@ As per the experience of using this kind of app, I thought it would be great to 
 - sort dummy data
 - To display progress icon while fetching data
 -->
-
+<!-- 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
+![Example screenshot](./img/screenshot.png) -->
 
 
 <!--
@@ -94,6 +95,11 @@ $ npm run start
 
 ## API Source
 - alpha-vantage
+
+## Room for Improvement
+To do:
+- To limit "note" words in addTransaction.jsx
+- Advanced search feature in TransactionList.jsx : intersection check
 
 <!-- 
 ## Usage
